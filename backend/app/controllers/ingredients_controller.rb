@@ -1,6 +1,6 @@
 class IngredientsController < ApplicationController
   # before_action :set_ingredient, only: %i[ show update destroy ]
-  before_action :set_ingredient, only: %i[ update destroy ]
+  before_action :set_ingredient, only: %i[ destroy ]
 
   # GET /ingredients
   def index
@@ -26,17 +26,24 @@ class IngredientsController < ApplicationController
   end
 
   # PATCH/PUT /ingredients/1
-  def update
-    if @ingredient.update(ingredient_params)
-      render json: @ingredient
-    else
-      render json: @ingredient.errors, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @ingredient.update(ingredient_params)
+  #     render json: @ingredient
+  #   else
+  #     render json: @ingredient.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /ingredients/1
   def destroy
     @ingredient.destroy!
+  end
+
+  # DELETE /ingredients
+  def destroy_all
+    Ingredient.destroy_all
+
+    render json: []
   end
 
   private

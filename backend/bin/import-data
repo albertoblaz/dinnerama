@@ -15,6 +15,7 @@ begin
   parsed_data.each do |entry|
   	Recipe.create(
   		title: entry[:title],
+      author: entry[:author],
   		category: entry[:category],
   		cook_time: entry[:cook_time],
   		prep_time: entry[:prep_time],
