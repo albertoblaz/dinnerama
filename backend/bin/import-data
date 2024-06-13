@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'json'
+
+require_relative '../lib/ingredient_importer'
+require_relative '../config/environment.rb'
+
+file_path = 'db/dataset/recipes-en.json'
+
+begin
+  file_content = File.read(file_path)
+  parsed_data = JSON.parse(file_content, symbolize_names: true)
+
+  parsed_data.each do |entry|
+  	Recipe.create(
+  		title: entry[:title],
+  		category: entry[:category],
+  		cook_time: entry[:cook_time],
+  		prep_time: entry[:prep_time],
+  		image: entry[:image],
+  		ingredients: entry[:ingredients],
+  		ratings: entry[:ratings]
+  	)
+  end
+
+  puts "No. of recipes created: #{Recipe.count}"
+rescue Errno::ENOENT
+  puts "Error: File not found"
+rescue JSON::ParserError => e
+  puts "Error: Failed to parse JSON - #{e.message}"
+end
