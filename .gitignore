@@ -21,5 +21,8 @@ backend/tmp/pids/*
 backend/storage/*
 backend/tmp/storage/*
 
+# Ignore secrets not to publish them on Github
+backend/tmp/local_secret.txt
+
 # Ignore master key for decrypting credentials and more.
 backend/config/master.key
